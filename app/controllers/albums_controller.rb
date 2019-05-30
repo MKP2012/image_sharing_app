@@ -1,5 +1,5 @@
 class AlbumsController < ApplicationController
-  before_action :set_user, only: [:index, :new, :create]
+  before_action :set_user
   before_action :set_album, only: [:show, :edit, :update, :destroy]
 
   # GET /albums
@@ -25,9 +25,7 @@ class AlbumsController < ApplicationController
   # POST /albums
   # POST /albums.json
   def create
-    debugger
     @album = @user.albums.build(album_params)
-
     respond_to do |format|
       if @album.save
         format.html { redirect_to @album, notice: 'Album was successfully created.' }
@@ -58,7 +56,7 @@ class AlbumsController < ApplicationController
   def destroy
     @album.destroy
     respond_to do |format|
-      format.html { redirect_to albums_url, notice: 'Album was successfully destroyed.' }
+      format.html { redirect_to user_albums_url, notice: 'Album was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -66,7 +64,7 @@ class AlbumsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_album
-      @album = Album.find(params[:id])
+      @album = Album.where(id: params[:id], user_id: @user.id).first if !!params[:id]
     end
 
     def set_user

@@ -1,4 +1,4 @@
-<%= form_with(model: [@user,@user.albums.build] , local: true) do |form| %>
+<%= form_with(model: [@user, @album] , local: true) do |form| %>
   <% if album.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(album.errors.count, "error") %> prohibited this album from being saved:</h2>

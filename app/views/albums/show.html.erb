@@ -7,8 +7,7 @@
 
 <p>
   <strong>User:</strong>
-  <%= @album.user %>
+  <%= @album.user.email %>
 </p>
 
-<%= link_to 'Edit', edit_album_path(@album) %> |
 <%= link_to 'Back', user_albums_path(current_user) %>
